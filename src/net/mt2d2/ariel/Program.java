@@ -1,44 +1,54 @@
 package net.mt2d2.ariel;
+
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-public class Program implements Iterable<Instruction>
+public class Program
 {	
-	private List<Instruction> instructions = new ArrayList<Instruction>();
+	private List<Block> blocks;
 	
 	public Program()
 	{
-		// No defaults, we need user to enter a program
-		// We can scan a text file for opcodes and arguments in the future
+		this.blocks = new ArrayList<Block>();
 	}
 	
-	public void addInstruction(Opcodes opcode)
+	public Program(Source source)
 	{		
-		this.instructions.add(new Instruction(opcode));
-	}
-
-	public void addInstruction(Opcodes opcode, Object argument)
-	{
-		this.instructions.add(new Instruction(opcode, new Value(argument)));
+		this();
+		
+		Block main = new Block("main");
+		
+		String[] lines = source.toString().split("\n");
+		
+		for (String line : lines)
+		{
+			line = line.trim();
+			
+			if (! line.equals("") && ! line.startsWith("//"))
+				main.addInstruction(Instruction.fromString(line));
+		}
+		
+		this.blocks.add(this.createVersionBlock());
+		this.blocks.add(main);
 	}
 	
-	@Override
-	public Iterator<Instruction> iterator()
+	private Block createVersionBlock()
 	{
-		return this.instructions.iterator();
+		Block version = new Block("version");
+		
+		version.addInstruction(new Instruction(Opcode.LIT_FLOAT, "0.2"));
+		version.addInstruction(new Instruction(Opcode.PRINT));
+		version.addInstruction(new Instruction(Opcode.RTRN));
+		
+		return version;
 	}
-	
-	@Override
-	public String toString()
-	{
-		String toReturn = "";
-		
-		// toReturn += "There are a total of " + this.instructions.size() + " instructions\n";
 
-		for (Instruction instruction : this.instructions)
-			toReturn += instruction.toString() + "\n";
+	public Block getBlock(String name)
+	{
+		for (Block b : this.blocks)
+			if (b.getName().equals(name))
+				return b;
 		
-		return toReturn;
+		return null;
 	}
 }

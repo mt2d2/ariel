@@ -1,0 +1,42 @@
+package net.mt2d2.ariel;
+
+public enum Opcode
+{
+	LIT_INT,
+	LIT_FLOAT,
+	
+	STORE_INT,
+	LOAD_INT,
+	STORE_FLOAT,
+	LOAD_FLOAT,
+	
+	LE_INT,
+	LEQ_INT,
+	GE_INT,
+	GEQ_INT,
+	EQ_INT,
+	NEQ_INT,
+	LE_FLOAT,
+	LEQ_FLOAT,
+	GE_FLOAT,
+	GEQ_FLOAT,
+	EQ_FLOAT,
+	NEQ_FLOAT,
+	
+	ADD_INT,
+	SUB_INT,
+	MUL_INT,
+	DIV_INT,
+	MOD_INT,
+	ADD_FLOAT,
+	SUB_FLOAT,
+	MUL_FLOAT,
+	DIV_FLOAT,
+	MOD_FLOAT,
+	
+	PRINT,
+	JMP,
+	CALL,
+	INVOKE,
+	RTRN
+}

@@ -1,40 +1,44 @@
 package net.mt2d2.ariel;
+
 public class Instruction
 {
-	public Opcodes	opcode;
-	public Value	argument;
-
-	public Instruction(Opcodes opcode)
+	public Opcode opcode;
+	public String argument;
+	
+	public Instruction(Opcode op, String arg)
 	{
-		this.opcode = opcode;
-	}
-
-	public Instruction(Opcodes opcode, Value arg)
-	{
-		this.opcode = opcode;
+		this.opcode = op;
 		this.argument = arg;
 	}
-
-	public Opcodes getOpcode()
+	
+	public Instruction(Opcode op)
 	{
-		return opcode;
+		this(op, null);
 	}
-
-	public Value getArgument()
+	
+	public static Instruction fromString(String line)
 	{
-		return argument;
+		String[] chunks = line.split(" ");
+		
+		if (chunks.length == 2)
+			return new Instruction(Opcode.valueOf(chunks[0]), chunks[1]);
+		else
+			return new Instruction(Opcode.valueOf(chunks[0]));
 	}
-
+	
+	public Opcode getOpcode()
+	{
+		return this.opcode;
+	}
+	
+	public String getArgument()
+	{
+		return this.argument;
+	}
+	
 	@Override
 	public String toString()
 	{
-		String toReturn = new String();
-
-		toReturn += this.opcode.name();
-
-		if (this.argument != null)
-			toReturn += "(" + this.argument.toString() + ")";
-
-		return toReturn;
+		return this.opcode.toString() + ((this.argument == null) ? "" : " [" + this.argument +"]");
 	}
 }
