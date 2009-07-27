@@ -114,7 +114,7 @@ public class Machine
 					break;
 				case JMP:
 					if (popBoolean())
-						ip = block.getLabel(instr.getArgument());
+						ip += Integer.parseInt(instr.getArgument());
 					break;
 				case RTRN:
 					if (this.stack.size() != 0)

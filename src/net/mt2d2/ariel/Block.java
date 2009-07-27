@@ -7,28 +7,16 @@ import java.util.Map;
 
 public class Block
 {
-	private String name;
-	private Map<String, Object> memory;
-	private List<Instruction> instructions;
-	private Map<String, Integer> labels;
-	private int ip;
+	private String				name;
+	private Map<String, Object>	memory;
+	private List<Instruction>	instructions;
+	private int					ip;
 
 	public Block(String name)
 	{
 		this.name = name;
 		this.memory = new HashMap<String, Object>();
-		this.labels = new HashMap<String, Integer>();
 		this.instructions = new ArrayList<Instruction>();
-	}
-	
-	public int getLabel(String key)
-	{
-		return this.labels.get(key);
-	}
-	
-	public void addLabel(String key)
-	{
-		this.labels.put(key, this.instructions.size());
 	}
 
 	public void addInstruction(Instruction instr)
