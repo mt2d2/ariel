@@ -17,8 +17,9 @@ public class Instruction
 	}
 	
 	public static Instruction fromString(String line)
-	{
+	{	
 		String[] chunks = line.split(" ");
+		chunks[0] = chunks[0].toUpperCase();
 		
 		if (chunks.length == 2)
 			return new Instruction(Opcode.valueOf(chunks[0]), chunks[1]);
