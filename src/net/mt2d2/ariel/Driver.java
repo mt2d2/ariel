@@ -2,6 +2,8 @@ package net.mt2d2.ariel;
 
 public class Driver
 {
+	public static final String VERSION = "0.31";
+	
 	public static void main(String[] args)
 	{
 		if (args.length < 1)
@@ -11,7 +13,8 @@ public class Driver
 		}
 	
 		Source source = new Source(args[0]);
-		Program program = new Program(source);
+		Program program = source.parse();
+
 		Machine machine = new Machine(program);
 		
 		machine.execute();	
